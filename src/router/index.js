@@ -12,21 +12,26 @@ const routes = [
   },
   {
     path: "/",
-    redirect: Home
+    redirect: Home,
   },
   {
     path: "/login",
     name: "login",
-    component: () => import('../views/Log-In')
+    component: () => import("../views/Log-In"),
   },
   {
     path: "/signup",
-    name: "signup"
+    name: "signup",
   },
   {
     path: "/main",
     name: "Main",
-    component: () => import('../views/Main')
+    component: () => import("../views/Main"),
+  },
+  {
+    path: "/consultas-legales",
+    name: "LegalAdvices",
+    component: () => import("../legalAdvices/pages/LegalAdvices"),
   },
 ];
 
