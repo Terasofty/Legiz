@@ -58,5 +58,65 @@
       "customerId": 1,
       "lawyerId": 2
     }
+  ],
+  "custom-cases": [
+    {
+      "id": 1,
+      "statusLawService": "status1",
+      "title": "title1",
+      "startAt": "00:00:00",
+      "finishAt": "00:00:00",
+      "typeMeet": 1,
+      "linkZoom": "https://success.zoom.us/j/9123919/...",
+      "customerId": 1,
+      "lawyerId": 1
+    },
+    {
+      "id": 2,
+      "statusLawService": "status2",
+      "title": "title2",
+      "startAt": "00:00:00",
+      "finishAt": "00:00:00",
+      "typeMeet": 1,
+      "linkZoom": "https://success.zoom.us/j/9125219/...",
+      "customerId": 1,
+      "lawyerId": 2
+    },
+    {
+      "statusLawService": "pruebastatus",
+      "title": "tituloprueba",
+      "startAt": "pruebastart",
+      "finishAt": "pruebafinish",
+      "typeMeet": "",
+      "linkZoom": "link",
+      "customerId": "1",
+      "lawyerId": "1",
+      "apiId": "v1",
+      "id": 3
+    },
+    {
+      "statusLawService": "Activo",
+      "legalCaseType": "Derecho Tributario",
+      "startAt": "00:00:00",
+      "finishAt": "00:00:00",
+      "typeMeet": "1",
+      "linkZoom": "",
+      "customerId": "1",
+      "lawyerId": "1",
+      "apiId": "v1",
+      "id": 25
+    },
+    {
+      "statusLawService": "Activo",
+      "legalCaseType": "Derecho Tributario",
+      "startAt": "00:00:00",
+      "finishAt": "00:00:00",
+      "typeMeet": "2",
+      "linkZoom": "",
+      "customerId": "1",
+      "lawyerId": "1",
+      "apiId": "v1",
+      "id": 26
+    }
   ]
 }
