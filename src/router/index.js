@@ -33,6 +33,11 @@ const routes = [
     name: "LegalAdvices",
     component: () => import("../legalAdvices/pages/LegalAdvices"),
   },
+  {
+    path: "/casos-personalizados",
+    name: "CustomCases",
+    component: () => import("../customCases/pages/CustomCases"),
+  },
 ];
 
 const router = new VueRouter({
