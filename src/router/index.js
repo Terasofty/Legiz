@@ -29,9 +29,9 @@ const routes = [
     component: () => import("../views/Main"),
   },
   {
-    path: "/consultas-legales",
+    path: "/main/legaladvice",
     name: "LegalAdvices",
-    component: () => import("../legalAdvices/pages/LegalAdvices"),
+    component: () => import("../legalAdvices/pages/LegalAdvice"),
   },
   {
     path: "/casos-personalizados",

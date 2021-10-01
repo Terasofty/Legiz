@@ -24,3 +24,4 @@ class LegalAdvicesService {
 }
 
 export default new LegalAdvicesService();
+
