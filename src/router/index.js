@@ -38,6 +38,11 @@ const routes = [
     name: "CustomCases",
     component: () => import("../customCases/pages/CustomCases"),
   },
+  {
+    path: "/Legal-service-history",
+    name: "LegalServiceHistory",
+    component: () => import("../legalServiceHistory/pages/LegalServiceHistory"),
+  },
 ];
 
 const router = new VueRouter({
