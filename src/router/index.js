@@ -44,10 +44,15 @@ const routes = [
     component: () => import("../legalServiceHistory/pages/LegalServiceHistory"),
   },
   {
+    path: "/case-information",
+    name: "CaseInformation",
+    component: () => import("../case-information/pages/case-information"),
+  },
+  {
     path: "/search-lawyer",
     name: "SearchLawyer",
     component: () => import("../search-lawyer/pages/container-lawyers")
-  }
+  },
 
   
   {
@@ -66,7 +71,6 @@ const routes = [
       },
     ],
   },
-    
 ];
 
 
