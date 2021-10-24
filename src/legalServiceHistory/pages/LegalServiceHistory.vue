@@ -20,9 +20,9 @@
               <v-divider class="mx-4" inset vertical></v-divider>
               <v-spacer></v-spacer>
               <v-dialog v-model="dialog" max-width="500px">
-<!--                <template v-slot:activator="{ on, attrs }">-->
-<!--                  <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">Nueva Consulta</v-btn>-->
-<!--                </template>-->
+                <!--                <template v-slot:activator="{ on, attrs }">-->
+                <!--                  <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">Nueva Consulta</v-btn>-->
+                <!--                </template>-->
                 <!--New or Edit Dialog-->
                 <v-card>
                   <v-card-title>{{ formTitle }}</v-card-title>
@@ -35,21 +35,21 @@
                         <v-col cols="12" sm="6" md="4" lg="12">
                           <v-text-field v-model="editedItem.description" label="Descripción"></v-text-field>
                         </v-col>
-<!--                                                <v-col cols="12" sm="6" md="4" lg="12">-->
-<!--                                                  <v-select-->
-<!--                                                    :items="legalAdviceStatus"-->
-<!--                                                    v-model="editedItem.status"-->
-<!--                                                    label="Current Status"-->
-<!--                                                  ></v-select>-->
-<!--                                                </v-col>-->
+                        <!--                                                <v-col cols="12" sm="6" md="4" lg="12">-->
+                        <!--                                                  <v-select-->
+                        <!--                                                    :items="legalAdviceStatus"-->
+                        <!--                                                    v-model="editedItem.status"-->
+                        <!--                                                    label="Current Status"-->
+                        <!--                                                  ></v-select>-->
+                        <!--                                                </v-col>-->
                       </v-row>
                     </v-container>
                   </v-card-text>
-<!--                                    <v-card-actions>-->
-<!--                                      <v-spacer></v-spacer>-->
-<!--                                      <v-btn color="primary" text @click="close">Cancel</v-btn>-->
-<!--                                      <v-btn color="primary" @click="save">Save</v-btn>-->
-<!--                                    </v-card-actions>-->
+                  <!--                                    <v-card-actions>-->
+                  <!--                                      <v-spacer></v-spacer>-->
+                  <!--                                      <v-btn color="primary" text @click="close">Cancel</v-btn>-->
+                  <!--                                      <v-btn color="primary" @click="save">Save</v-btn>-->
+                  <!--                                    </v-card-actions>-->
                 </v-card>
               </v-dialog>
               <!--Delete confirmation dialog-->
@@ -67,7 +67,7 @@
             </v-toolbar>
           </template>
           <template v-slot:item.actions="{ item }">
-<!--            <v-icon small class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>-->
+            <!--            <v-icon small class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>-->
             <v-icon small @click="deleteItem(item.id)">mdi-delete</v-icon>
           </template>
           <template v-slot:no-data>

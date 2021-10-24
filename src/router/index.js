@@ -34,12 +34,12 @@ const routes = [
     component: () => import("../legalAdvices/pages/LegalAdvice"),
   },
   {
-    path: "/casos-personalizados",
+    path: "/custom-cases",
     name: "CustomCases",
-    component: () => import("../customCases/pages/CustomCases"),
+    component: () => import("../custom-cases/pages/custom-cases"),
   },
   {
-    path: "/Legal-service-history",
+    path: "/legal-service-history",
     name: "LegalServiceHistory",
     component: () => import("../legalServiceHistory/pages/LegalServiceHistory"),
   },
@@ -48,7 +48,31 @@ const routes = [
     name: "CaseInformation",
     component: () => import("../case-information/pages/case-information"),
   },
+  {
+    path: "/search-lawyer",
+    name: "SearchLawyer",
+    component: () => import("../search-lawyer/pages/container-lawyers")
+  },
+
+  
+  {
+    path: "/lawyers/:id",
+    component: () => import("../lawyer/pages/lawyer-profile"),
+    children: [
+      {
+        path: "scores",
+        name: "scores",
+        component: () => import("../lawyer/pages/scores"),
+      },
+      {
+        path: "employment-history",
+        name: "EmploymentHistory",
+        component: () => import("../lawyer/pages/employment-history"),
+      },
+    ],
+  },
 ];
+
 
 const router = new VueRouter({
   mode: "history",
