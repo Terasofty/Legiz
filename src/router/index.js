@@ -43,6 +43,16 @@ const routes = [
     name: "LegalServiceHistory",
     component: () => import("../legalServiceHistory/pages/LegalServiceHistory"),
   },
+  {
+    path: "/Legal-service-history",
+    name: "LegalServiceHistory",
+    component: () => import("../legalServiceHistory/pages/LegalServiceHistory")
+  },
+  {
+    path: "/search-lawyer",
+    name: "SearchLawyer",
+    component: () => import("../search-lawyer/pages/container-lawyers")
+  }
 ];
 
 const router = new VueRouter({
