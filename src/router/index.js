@@ -43,6 +43,11 @@ const routes = [
     name: "LegalServiceHistory",
     component: () => import("../legalServiceHistory/pages/LegalServiceHistory"),
   },
+  {
+    path: "/case-information",
+    name: "CaseInformation",
+    component: () => import("../case-information/pages/case-information"),
+  },
 ];
 
 const router = new VueRouter({
