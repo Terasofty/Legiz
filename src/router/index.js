@@ -39,9 +39,25 @@ const routes = [
     component: () => import("../customCases/pages/CustomCases"),
   },
   {
-    path: "/Legal-service-history",
+    path: "/legal-service-history",
     name: "LegalServiceHistory",
     component: () => import("../legalServiceHistory/pages/LegalServiceHistory"),
+  },
+  {
+    path: "/lawyers/:id",
+    component: () => import("../lawyer/pages/lawyer-profile"),
+    children: [
+      {
+        path: "scores",
+        name: "scores",
+        component: () => import("../lawyer/pages/scores"),
+      },
+      {
+        path: "employment-history",
+        name: "EmploymentHistory",
+        component: () => import("../lawyer/pages/employment-history"),
+      },
+    ],
   },
 ];
 
