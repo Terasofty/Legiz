@@ -3,8 +3,26 @@
     <v-col cols="12" md="4" justify="center">
       <h1 class="text-center">Log In</h1>
       <v-form ref="form" align="center">
-        <v-text-field required solo dense label="usuario" :rules="usernameRules" class="align-lg-center" v-model="username"></v-text-field>
-        <v-text-field required solo dense label="contraseña" :rules="passwordRules" @click:append="showPassword = !showPassword" :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" :type="showPassword ? 'text': 'password'" v-model="password"></v-text-field>
+        <v-text-field
+          required
+          solo
+          dense
+          label="usuario"
+          :rules="usernameRules"
+          class="align-lg-center"
+          v-model="username"
+        ></v-text-field>
+        <v-text-field
+          required
+          solo
+          dense
+          label="contraseña"
+          :rules="passwordRules"
+          @click:append="showPassword = !showPassword"
+          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+          :type="showPassword ? 'text' : 'password'"
+          v-model="password"
+        ></v-text-field>
         <v-checkbox value="1" type="checkbox" label="Mantener sesión iniciada"> </v-checkbox>
         <v-btn class="mr-4 btn primary" @click="validated()">Log In</v-btn>
       </v-form>
@@ -25,29 +43,24 @@ export default {
       password: null,
       valid: true,
       showPassword: false,
-      usernameRules: [
-          v => !!v || 'Name is required'
-      ],
-      passwordRules: [
-          v => !!v || 'Password is required'
-      ]
+      usernameRules: [v => !!v || "Name is required"],
+      passwordRules: [v => !!v || "Password is required"],
     };
   },
   methods: {
     goToNewURL() {
-      router.push('main')
-    }
+      router.push("main");
+    },
   },
   computed: {
     // eslint-disable-next-line
     validated: function () {
       if (this.$refs.form.validate()) {
-        this.goToNewURL()
+        this.goToNewURL();
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

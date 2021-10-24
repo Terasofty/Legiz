@@ -12,22 +12,42 @@ const routes = [
   },
   {
     path: "/",
-    redirect: Home
+    redirect: Home,
   },
   {
     path: "/login",
     name: "login",
-    component: () => import('../views/Log-In')
+    component: () => import("../views/Log-In"),
   },
   {
     path: "/signup",
-    name: "signup"
+    name: "signup",
   },
   {
     path: "/main",
     name: "Main",
-    component: () => import('../views/Main')
+    component: () => import("../views/Main")
   },
+  {
+    path: "/main/legaladvice",
+    name: "LegalAdvices",
+    component: () => import("../legalAdvices/pages/LegalAdvice")
+  },
+  {
+    path: "/casos-personalizados",
+    name: "CustomCases",
+    component: () => import("../customCases/pages/CustomCases")
+  },
+  {
+    path: "/Legal-service-history",
+    name: "LegalServiceHistory",
+    component: () => import("../legalServiceHistory/pages/LegalServiceHistory")
+  },
+  {
+    path: "/search-lawyer",
+    name: "SearchLawyer",
+    component: () => import("../search-lawyer/pages/container-lawyers")
+  }
 ];
 
 const router = new VueRouter({

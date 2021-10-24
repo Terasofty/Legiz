@@ -1,0 +1,126 @@
+{
+  "customers": [
+    {
+      "id": 1,
+      "userMame": "user1",
+      "password": "password1",
+      "registerDate": "09-09-2021",
+      "customerName": "name1",
+      "customerLastName": "lastName1",
+      "email": "email1@email.com"
+    },
+    {
+      "id": 2,
+      "userMame": "user2",
+      "password": "password2",
+      "registerDate": "09-09-2021",
+      "customerName": "name2",
+      "customerLastName": "lastName2",
+      "email": "email2@email.com"
+    }
+  ],
+  "lawyers": [
+    {
+      "id": 1,
+      "userMame": "user3",
+      "password": "password3",
+      "registerDate": "09-09-2021",
+      "specialization": "Business Law",
+      "address": "Callao",
+      "lawyerName": "Mauricio",
+      "lawyerLastName": "Carmen",
+      "email": "mauricio@email.com"
+    },
+    {
+      "id": 2,
+      "userMame": "user4",
+      "password": "password4",
+      "registerDate": "09-09-2021",
+      "specialization": "Real State Law",
+      "address": "San Martin",
+      "lawyerName": "Alonso",
+      "lawyerLastName": "Díaz",
+      "email": "alonso@email.com"
+    }
+  ],
+  "legal-advices": [
+    {
+      "id": 1,
+      "statusLawService": "status1",
+      "title": "title1",
+      "description": "description1",
+      "legalResponse": "response1",
+      "customerId": 1,
+      "lawyerId": 1
+    },
+    {
+      "id": 2,
+      "statusLawService": "status2",
+      "title": "title2",
+      "description": "description2",
+      "legalResponse": "response2",
+      "customerId": 1,
+      "lawyerId": 2
+    }
+  ],
+  "custom-cases": [
+    {
+      "id": 1,
+      "statusLawService": "status1",
+      "title": "title1",
+      "startAt": "00:00:00",
+      "finishAt": "00:00:00",
+      "typeMeet": 1,
+      "linkZoom": "https://success.zoom.us/j/9123919/...",
+      "customerId": 1,
+      "lawyerId": 1
+    },
+    {
+      "id": 2,
+      "statusLawService": "status2",
+      "title": "title2",
+      "startAt": "00:00:00",
+      "finishAt": "00:00:00",
+      "typeMeet": 1,
+      "linkZoom": "https://success.zoom.us/j/9125219/...",
+      "customerId": 1,
+      "lawyerId": 2
+    },
+    {
+      "statusLawService": "pruebastatus",
+      "title": "tituloprueba",
+      "startAt": "pruebastart",
+      "finishAt": "pruebafinish",
+      "typeMeet": "",
+      "linkZoom": "link",
+      "customerId": "1",
+      "lawyerId": "1",
+      "apiId": "v1",
+      "id": 3
+    },
+    {
+      "statusLawService": "Activo",
+      "legalCaseType": "Derecho Tributario",
+      "startAt": "00:00:00",
+      "finishAt": "00:00:00",
+      "typeMeet": "1",
+      "linkZoom": "",
+      "customerId": "1",
+      "lawyerId": "1",
+      "apiId": "v1",
+      "id": 25
+    },
+    {
+      "statusLawService": "Activo",
+      "legalCaseType": "Derecho Tributario",
+      "startAt": "00:00:00",
+      "finishAt": "00:00:00",
+      "typeMeet": "2",
+      "linkZoom": "",
+      "customerId": "1",
+      "lawyerId": "1",
+      "apiId": "v1",
+      "id": 26
+    }
+  ]
+}
