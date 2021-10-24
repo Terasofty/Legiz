@@ -34,9 +34,9 @@ const routes = [
     component: () => import("../legalAdvices/pages/LegalAdvices"),
   },
   {
-    path: "/casos-personalizados",
+    path: "/custom-cases",
     name: "CustomCases",
-    component: () => import("../customCases/pages/CustomCases"),
+    component: () => import("../custom-cases/pages/custom-cases"),
   },
 ];
 
