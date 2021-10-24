@@ -26,17 +26,22 @@ const routes = [
   {
     path: "/main",
     name: "Main",
-    component: () => import("../views/Main")
+    component: () => import("../views/Main"),
   },
   {
     path: "/main/legaladvice",
     name: "LegalAdvices",
-    component: () => import("../legalAdvices/pages/LegalAdvice")
+    component: () => import("../legalAdvices/pages/LegalAdvice"),
   },
   {
-    path: "/casos-personalizados",
+    path: "/custom-cases",
     name: "CustomCases",
-    component: () => import("../customCases/pages/CustomCases")
+    component: () => import("../custom-cases/pages/custom-cases"),
+  },
+  {
+    path: "/Legal-service-history",
+    name: "LegalServiceHistory",
+    component: () => import("../legalServiceHistory/pages/LegalServiceHistory"),
   },
   {
     path: "/Legal-service-history",
