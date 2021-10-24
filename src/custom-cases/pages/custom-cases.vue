@@ -162,7 +162,7 @@
 
 <script>
 
-import customCasesService from "../services/customCases.service";
+import customCasesService from "../services/custom-cases.service";
 
 export default {
   name: "CustomCases",

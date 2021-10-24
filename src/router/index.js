@@ -34,15 +34,22 @@ const routes = [
     component: () => import("../legalAdvices/pages/LegalAdvice"),
   },
   {
-    path: "/casos-personalizados",
+    path: "/custom-cases",
     name: "CustomCases",
-    component: () => import("../customCases/pages/CustomCases"),
+    component: () => import("../custom-cases/pages/custom-cases"),
   },
   {
     path: "/legal-service-history",
     name: "LegalServiceHistory",
     component: () => import("../legalServiceHistory/pages/LegalServiceHistory"),
   },
+  {
+    path: "/search-lawyer",
+    name: "SearchLawyer",
+    component: () => import("../search-lawyer/pages/container-lawyers")
+  }
+
+  
   {
     path: "/lawyers/:id",
     component: () => import("../lawyer/pages/lawyer-profile"),
@@ -59,7 +66,9 @@ const routes = [
       },
     ],
   },
+    
 ];
+
 
 const router = new VueRouter({
   mode: "history",

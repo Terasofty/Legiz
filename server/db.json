@@ -25,18 +25,22 @@
       "userMame": "user3",
       "password": "password3",
       "registerDate": "09-09-2021",
-      "lawyerName": "name1",
-      "lawyerLastName": "lastName1",
-      "email": "email1@email.com"
+      "specialization": "Business Law",
+      "address": "Callao",
+      "lawyerName": "Mauricio",
+      "lawyerLastName": "Carmen",
+      "email": "mauricio@email.com"
     },
     {
       "id": 2,
       "userMame": "user4",
       "password": "password4",
       "registerDate": "09-09-2021",
-      "lawyerName": "name2",
-      "lawyerLastName": "lastName2",
-      "email": "email2@email.com"
+      "specialization": "Real State Law",
+      "address": "San Martin",
+      "lawyerName": "Alonso",
+      "lawyerLastName": "Díaz",
+      "email": "alonso@email.com"
     }
   ],
   "advices": [
