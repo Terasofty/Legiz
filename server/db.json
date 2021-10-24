@@ -25,21 +25,25 @@
       "userMame": "user3",
       "password": "password3",
       "registerDate": "09-09-2021",
-      "lawyerName": "name1",
-      "lawyerLastName": "lastName1",
-      "email": "email1@email.com"
+      "specialization": "Business Law",
+      "address": "Callao",
+      "lawyerName": "Mauricio",
+      "lawyerLastName": "Carmen",
+      "email": "mauricio@email.com"
     },
     {
       "id": 2,
       "userMame": "user4",
       "password": "password4",
       "registerDate": "09-09-2021",
-      "lawyerName": "name2",
-      "lawyerLastName": "lastName2",
-      "email": "email2@email.com"
+      "specialization": "Real State Law",
+      "address": "San Martin",
+      "lawyerName": "Alonso",
+      "lawyerLastName": "Díaz",
+      "email": "alonso@email.com"
     }
   ],
-  "legal-advices": [
+  "advices": [
     {
       "id": 1,
       "statusLawService": "status1",
@@ -117,6 +121,76 @@
       "lawyerId": "1",
       "apiId": "v1",
       "id": 26
+    }
+  ],
+  "scores": [
+    {
+      "id": 1,
+      "star": 3,
+      "comment": "good service",
+      "lawyerId": 1
+    },
+    {
+      "id": 2,
+      "star": 2,
+      "comment": "good service x2",
+      "lawyerId": 1
+    },
+    {
+      "id": 3,
+      "star": 5,
+      "comment": "good service x3",
+      "lawyerId": 1
+    },
+    {
+      "id": 4,
+      "star": 3,
+      "comment": "good service x4",
+      "lawyerId": 2
+    },
+    {
+      "id": 5,
+      "star": 5,
+      "comment": "good service x5",
+      "lawyerId": 2
+    }
+  ],
+  "employments": [
+    {
+      "id": 1,
+      "code": "CODE1",
+      "description": "case summary",
+      "lawyerId": 1
+    },
+    {
+      "id": 2,
+      "code": "CODE2",
+      "description": "case summary x2",
+      "lawyerId": 1
+    },
+    {
+      "id": 3,
+      "code": "CODE3",
+      "description": "case summary x3",
+      "lawyerId": 1
+    },
+    {
+      "id": 4,
+      "code": "CODE4",
+      "description": "case summary x4",
+      "lawyerId": 2
+    },
+    {
+      "id": 5,
+      "code": "CODE5",
+      "description": "case summary x5",
+      "lawyerId": 2
+    },
+    {
+      "id": 6,
+      "code": "CODE4",
+      "description": "case summary x4",
+      "lawyerId": "1"
     }
   ]
 }
