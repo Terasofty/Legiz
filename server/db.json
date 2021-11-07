@@ -5,8 +5,8 @@
       "userMame": "user1",
       "password": "password1",
       "registerDate": "09-09-2021",
-      "customerName": "name1",
-      "customerLastName": "lastName1",
+      "name": "name1",
+      "lastName": "lastName1",
       "email": "email1@email.com"
     },
     {
@@ -14,8 +14,8 @@
       "userMame": "user2",
       "password": "password2",
       "registerDate": "09-09-2021",
-      "customerName": "name2",
-      "customerLastName": "lastName2",
+      "name": "name2",
+      "lastName": "lastName2",
       "email": "email2@email.com"
     }
   ],
@@ -27,8 +27,8 @@
       "registerDate": "09-09-2021",
       "specialization": "Business Law",
       "address": "Callao",
-      "lawyerName": "Mauricio",
-      "lawyerLastName": "Carmen",
+      "name": "Mauricio",
+      "lastName": "Carmen",
       "email": "mauricio@email.com"
     },
     {
@@ -38,12 +38,67 @@
       "registerDate": "09-09-2021",
       "specialization": "Real State Law",
       "address": "San Martin",
-      "lawyerName": "Alonso",
-      "lawyerLastName": "Díaz",
+      "name": "Alonso",
+      "lastName": "Díaz",
+      "email": "alonso@email.com"
+    },
+    {
+      "id": 3,
+      "userMame": "user4",
+      "password": "password4",
+      "registerDate": "09-09-2021",
+      "specialization": "Real State Law",
+      "address": "San Martin",
+      "name": "Alonso",
+      "lastName": "Díaz",
+      "email": "alonso@email.com"
+    },
+    {
+      "id": 4,
+      "userMame": "user4",
+      "password": "password4",
+      "registerDate": "09-09-2021",
+      "specialization": "Real State Law",
+      "address": "San Martin",
+      "name": "Alonso",
+      "lastName": "Díaz",
+      "email": "alonso@email.com"
+    },
+    {
+      "id": 5,
+      "userMame": "user4",
+      "password": "password4",
+      "registerDate": "09-09-2021",
+      "specialization": "Real State Law",
+      "address": "San Martin",
+      "name": "Alonso",
+      "lastName": "Díaz",
+      "email": "alonso@email.com"
+    },
+    {
+      "id": 6,
+      "userMame": "user4",
+      "password": "password4",
+      "registerDate": "09-09-2021",
+      "specialization": "Real State Law",
+      "address": "San Martin",
+      "name": "Alonso",
+      "lastName": "Díaz",
+      "email": "alonso@email.com"
+    },
+    {
+      "id": 7,
+      "userMame": "user4",
+      "password": "password4",
+      "registerDate": "09-09-2021",
+      "specialization": "Real State Law",
+      "address": "San Martin",
+      "name": "Alonso",
+      "lastName": "Díaz",
       "email": "alonso@email.com"
     }
   ],
-  "advices": [
+  "legal-advices": [
     {
       "id": 1,
       "statusLawService": "status1",
@@ -61,6 +116,51 @@
       "legalResponse": "response2",
       "customerId": 1,
       "lawyerId": 2
+    },
+    {
+      "id": 3,
+      "statusLawService": "status3",
+      "title": "title3",
+      "description": "description3",
+      "legalResponse": "response3",
+      "customerId": 1,
+      "lawyerId": 1
+    },
+    {
+      "id": 4,
+      "statusLawService": "status4",
+      "title": "title4",
+      "description": "description4",
+      "legalResponse": "response4",
+      "customerId": 2,
+      "lawyerId": 2
+    },
+    {
+      "id": 5,
+      "statusLawService": "status5",
+      "title": "title5",
+      "description": "description5",
+      "legalResponse": "response5",
+      "customerId": 2,
+      "lawyerId": 2
+    },
+    {
+      "statusLawService": "PROCESS",
+      "title": "123",
+      "description": "qwe",
+      "legalResponse": "",
+      "customerId": 1,
+      "lawyerId": 7,
+      "id": 7
+    },
+    {
+      "statusLawService": "PROCESS",
+      "title": "bbbbbbb",
+      "description": "awaeqeq",
+      "legalResponse": "",
+      "customerId": 1,
+      "lawyerId": 1,
+      "id": 8
     }
   ],
   "custom-cases": [
@@ -121,6 +221,17 @@
       "lawyerId": "1",
       "apiId": "v1",
       "id": 26
+    },
+    {
+      "statusLawService": "Activo",
+      "legalCaseType": "Derecho Civil",
+      "startAt": "00:00:00",
+      "finishAt": "00:00:00",
+      "typeMeet": "null",
+      "linkZoom": "",
+      "customerId": "1",
+      "lawyerId": "1",
+      "id": 27
     }
   ],
   "scores": [

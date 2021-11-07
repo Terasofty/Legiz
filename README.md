@@ -20,5 +20,10 @@ npm run build
 npm run lint
 ```
 
+### Command run API
+```
+json-server db.json --routes routes.json
+```
+
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).

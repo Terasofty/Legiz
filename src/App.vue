@@ -1,29 +1,43 @@
 <template>
-  <v-app>
-    <v-app-bar app color="primary" dark>
-      <v-spacer></v-spacer>
-      <v-btn v-if="!value" plain to="/" @click="visible">Log In</v-btn>
-      <v-btn v-if="!value" plain to="/" @click="visible">Sign Up</v-btn>
-      <v-btn v-if="value" plain to="/login" @click="visible">Logout</v-btn>
-    </v-app-bar>
-    <v-main>
-      <v-container fluid>
-        <router-view />
-      </v-container>
-    </v-main>
-  </v-app>
+  <div>
+    <div v-if="isLoggedIn">
+      <div v-if="isCustomer"><home-client /></div>
+      <div v-else><home-lawyer /></div>
+    </div>
+    <div v-else>
+      <log-in />
+    </div>
+  </div>
 </template>
 
 <script>
+import HomeClient from "./views/home-client.vue";
+import HomeLawyer from "./views/home-lawyer.vue";
+import { mapGetters, mapState } from "vuex";
+import LogIn from "@/views/log-In";
+
 export default {
   name: "App",
-  data: () => ({
-    value: false,
-  }),
-  methods: {
-    visible() {
-      this.value = !this.value;
-    },
+  components: {
+    LogIn,
+    HomeLawyer,
+    HomeClient,
+  },
+  data: () => {
+    return {
+      IsClient: true,
+    };
+  },
+  computed: {
+    ...mapState({
+      isCustomer: (state) => state.logIn.isCustomer,
+    }),
+    ...mapGetters({
+      isLoggedIn: "logIn/loggedIn",
+    }),
+  },
+  created() {
+    this.$store.dispatch("lawyers/getLawyers");
   },
 };
 </script>
