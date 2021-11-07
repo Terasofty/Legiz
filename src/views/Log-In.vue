@@ -1,77 +1,64 @@
-<template>
-  <v-app>
-    <v-item-group>
-      <v-row justify="center">
-        <v-col md="3">
-          <v-item>
-            <v-card dark height="200" @click="logInCustomer">
-              <v-img
-                src="https://cdn.vuetifyjs.com/images/cards/house.jpg"
-                class="white--text align-end"
-                gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-                height="200px"
-              >
-                <v-card-title>Customer</v-card-title>
-              </v-img>
-            </v-card>
-          </v-item>
-        </v-col>
-
-        <v-col md="3">
-          <v-item>
-            <v-card class="d-flex align-center" dark height="200" @click="logInLawyer">
-              <v-img
-                src="https://cdn.vuetifyjs.com/images/cards/road.jpg"
-                class="white--text align-end"
-                gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-                height="200px"
-              >
-                <v-card-title>Lawyer</v-card-title>
-              </v-img>
-            </v-card>
-          </v-item>
-        </v-col>
-      </v-row>
-    </v-item-group>
-  </v-app>
+<template class="temp">
+  <v-row justify="center" class="px-3 mx-auto">
+    <v-col cols="12" md="4" justify="center">
+      <h1 class="text-center">Log In</h1>
+      <v-form ref="form" align="center">
+        <v-text-field
+          required
+          solo
+          dense
+          label="usuario"
+          :rules="usernameRules"
+          class="align-lg-center"
+          v-model="username"
+        ></v-text-field>
+        <v-text-field
+          required
+          solo
+          dense
+          label="contraseña"
+          :rules="passwordRules"
+          @click:append="showPassword = !showPassword"
+          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+          :type="showPassword ? 'text' : 'password'"
+          v-model="password"
+        ></v-text-field>
+        <v-checkbox value="1" type="checkbox" label="Mantener sesión iniciada"> </v-checkbox>
+        <v-btn class="mr-4 btn primary" @click="validated()">Log In</v-btn>
+      </v-form>
+      <h4 class="text-center ma-4 mr-8">Don't have an account yet?</h4>
+      <p class="text-center mr-4">Sign Up <router-link to="/signup"> Here!</router-link></p>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
-import { mapActions, mapGetters, mapState } from "vuex";
+import router from "../router";
 
 export default {
-  name: "LogIn",
+  name: "Log-In",
   data: () => {
-    return {};
+    return {
+      username: null,
+      password: null,
+      valid: true,
+      showPassword: false,
+      usernameRules: [v => !!v || "Name is required"],
+      passwordRules: [v => !!v || "Password is required"],
+    };
   },
   methods: {
-    logInCustomer() {
-      this.retrieveToken();
-      this.setIsCustomer();
-      this.$router.push({ name: "Home" });
+    goToNewURL() {
+      router.push("main");
     },
-    logInLawyer() {
-      this.retrieveToken();
-      this.setIsLawyer();
-      this.$router.push({ name: "Home" });
-    },
-    ...mapActions({
-      retrieveToken: "logIn/retrieveToken",
-      destroyToken: "logIn/destroyToken",
-      setIsCustomer: "logIn/getIsCustomer",
-      setIsLawyer: "logIn/getIsLawyer",
-    }),
   },
   computed: {
-    ...mapState({
-      isCustomer: (state) => state.logIn.isCustomer,
-    }),
-    ...mapGetters({
-      isLogIn: "logIn/loggedIn",
-    }),
-  },
-  mounted() {
-    this.destroyToken();
+    // eslint-disable-next-line
+    validated: function () {
+      if (this.$refs.form.validate()) {
+        this.goToNewURL();
+      }
+    },
   },
 };
 </script>

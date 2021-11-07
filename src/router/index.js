@@ -1,109 +1,83 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/home.vue";
-import store from "../store";
-import LogIn from "@/views/log-In";
-import LogOut from "@/views/log-out";
+import Home from "../views/Home.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
-    name: "Base",
-    redirect: "/login",
-  },
-  {
-    path: "/login",
-    name: "LogIn",
-    component: LogIn,
-  },
-  {
-    path: "/logout",
-    name: "logout",
-    component: LogOut,
-    meta: { requiresAuth: true },
+    name: "Home",
+    component: Home,
   },
   {
     path: "/",
-    name: "Home",
-    component: Home,
-    meta: { requiresAuth: true },
+    redirect: Home,
+  },
+  {
+    path: "/login",
+    name: "login",
+    component: () => import("../views/Log-In"),
+  },
+  {
+    path: "/signup",
+    name: "signup",
+  },
+  {
+    path: "/main",
+    name: "Main",
+    component: () => import("../views/Main"),
+  },
+  {
+    path: "/main/legaladvice",
+    name: "LegalAdvices",
+    component: () => import("../legalAdvices/pages/LegalAdvice"),
+  },
+  {
+    path: "/custom-cases",
+    name: "CustomCases",
+    component: () => import("../custom-cases/pages/custom-cases"),
+  },
+  {
+    path: "/legal-service-history",
+    name: "LegalServiceHistory",
+    component: () => import("../legalServiceHistory/pages/LegalServiceHistory"),
   },
   {
     path: "/case-information",
     name: "CaseInformation",
-    component: () => import(/* webpackChunkName: "case-information" */ "@/law/case-information/pages/case-information"),
-    meta: { requiresAuth: true },
+    component: () => import("../case-information/pages/case-information"),
   },
   {
     path: "/search-lawyer",
     name: "SearchLawyer",
-    component: () => import(/* webpackChunkName: "search-lawyer" */ "@/user-profile/lawyer/pages/lawyers"),
-    meta: { requiresAuth: true },
+    component: () => import("../search-lawyer/pages/container-lawyers")
   },
+
+  
   {
-    path: "/profile",
-    name: "Profile",
-    component: () => import(/* webpackChunkName: "profile" */ "@/user-profile/common/pages/profile"),
-    meta: { requiresAuth: true },
+    path: "/lawyers/:id",
+    component: () => import("../lawyer/pages/lawyer-profile"),
     children: [
       {
-        path: "legal-advices",
-        name: "LegalAdvices",
-        component: () => import(/* webpackChunkName: "legal-advices" */ "@/law/legal-advices/pages/legal-advices"),
+        path: "scores",
+        name: "scores",
+        component: () => import("../lawyer/pages/scores"),
       },
       {
-        path: "custom-cases",
-        name: "CustomCases",
-        component: () => import(/* webpackChunkName: "custom-cases" */ "@/law/custom-cases/pages/custom-cases"),
+        path: "employment-history",
+        name: "EmploymentHistory",
+        component: () => import("../lawyer/pages/employment-history"),
       },
     ],
-  },
-  {
-    path: "/lawyer-profile",
-    name: "LawyerProfile",
-    component: () => import(/* webpackChunkName: "profile" */ "@/user-profile/lawyer/pages/lawyer-profile"),
-    meta: { requiresAuth: true },
-    children: [
-      {
-        path: "legal-advices",
-        name: "LegalAdvicesProfile",
-        component: () => import(/* webpackChunkName: "legal-advices" */ "@/law/legal-advices/pages/legal-advices"),
-      },
-      {
-        path: "custom-cases",
-        name: "CustomCasesProfile",
-        component: () => import(/* webpackChunkName: "custom-cases" */ "@/law/custom-cases/pages/custom-cases"),
-      },
-    ],
-  },
-  {
-    path: "/about",
-    name: "About",
-    component: () => import(/* webpackChunkName: "about" */ "@/views/about"),
-    meta: { requiresAuth: true },
   },
 ];
+
 
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes,
-});
-
-router.beforeEach((to, from, next) => {
-  if (to.matched.some((record) => record.meta.requiresAuth)) {
-    if (!store.getters["logIn/loggedIn"]) {
-      next({
-        name: "LogIn",
-      });
-    } else {
-      next();
-    }
-  } else {
-    next(); // make sure to always call next()!
-  }
 });
 
 export default router;
