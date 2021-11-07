@@ -1,7 +1,9 @@
 import {
-  SET_IS_LEGAL_ADVICES_BY_CUSTOMER_ID,
+  SET_IS_LEGAL_ADVICES_BY_ID,
   SET_IS_ADD_LEGAL_ADVICE,
-  SET_IS_ADD_CUSTOM_CASE, SET_IS_CUSTOM_CASES_BY_CUSTOMER_ID
+  SET_IS_ADD_CUSTOM_CASE,
+  SET_IS_CUSTOM_CASES_BY_ID,
+  SET_IS_CUSTOMER,
 } from "../mutation-types";
 import customerService from "@/user-profile/customer/services/customersservice";
 import legalAdviceService from "@/law/legal-advices/services/legal-advices.service";
@@ -10,14 +12,15 @@ import customCaseService from "@/law/custom-cases/services/custom-cases.service"
 const state = {
   legalAdvices: [],
   customCases: [],
+  isClient: false,
   id: 1,
 };
 
 const mutations = {
-  [SET_IS_LEGAL_ADVICES_BY_CUSTOMER_ID](state, legalAdvices) {
+  [SET_IS_LEGAL_ADVICES_BY_ID](state, legalAdvices) {
     state.legalAdvices = legalAdvices;
   },
-  [SET_IS_CUSTOM_CASES_BY_CUSTOMER_ID](state, customCases) {
+  [SET_IS_CUSTOM_CASES_BY_ID](state, customCases) {
     state.customCases = customCases;
   },
   [SET_IS_ADD_LEGAL_ADVICE](state, legalAdviceDto) {
@@ -26,13 +29,16 @@ const mutations = {
   [SET_IS_ADD_CUSTOM_CASE](state, customCaseDto) {
     state.customCases = [...state.customCases, customCaseDto];
   },
+  [SET_IS_CUSTOMER](state, payload) {
+    state.isClient = payload;
+  },
 };
 
 const actions = {
   async getLegalAdvicesById({ commit }, customerId) {
     try {
       let response = await customerService.getLegalAdvicesById(customerId);
-      commit(SET_IS_LEGAL_ADVICES_BY_CUSTOMER_ID, response.data);
+      commit(SET_IS_LEGAL_ADVICES_BY_ID, response.data);
     } catch (error) {
       console.log(error);
     }
@@ -40,7 +46,7 @@ const actions = {
   async getCustomCasesById({ commit }, customerId) {
     try {
       let response = await customerService.getCustomCasesById(customerId);
-      commit(SET_IS_CUSTOM_CASES_BY_CUSTOMER_ID, response.data);
+      commit(SET_IS_CUSTOM_CASES_BY_ID, response.data);
     } catch (error) {
       console.log(error);
     }
@@ -60,6 +66,9 @@ const actions = {
     } catch (error) {
       console.log(error);
     }
+  },
+  setIsCustomer({ commit }, payload) {
+    commit(SET_IS_CUSTOMER, payload);
   },
 };
 

@@ -9,9 +9,15 @@ class LegalAdvicesService {
   getById(id) {
     return http.get(`${this.endPoint}/${id}`);
   }
+
   getByCustomerId(customerId) {
     return http.get(`${this.endPoint}/customers/${customerId}`);
   }
+
+  getByLawyerId(lawyerId) {
+    return http.get(`${this.endPoint}/lawyers/${lawyerId}`);
+  }
+
   create(legalAdviceDto) {
     return http.post(this.endPoint, legalAdviceDto);
   }

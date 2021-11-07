@@ -1,10 +1,10 @@
 <template>
-  <v-item-group>
-    <v-container align="center">
+  <v-app>
+    <v-item-group>
       <v-row justify="center">
-        <v-col cols="12" md="4">
+        <v-col md="3">
           <v-item>
-            <v-card class="d-flex align-center" dark height="200" @click="login">
+            <v-card dark height="200" @click="logInCustomer">
               <v-img
                 src="https://cdn.vuetifyjs.com/images/cards/house.jpg"
                 class="white--text align-end"
@@ -17,9 +17,9 @@
           </v-item>
         </v-col>
 
-        <v-col cols="12" md="4">
+        <v-col md="3">
           <v-item>
-            <v-card class="d-flex align-center" dark height="200" @click="login">
+            <v-card class="d-flex align-center" dark height="200" @click="logInLawyer">
               <v-img
                 src="https://cdn.vuetifyjs.com/images/cards/road.jpg"
                 class="white--text align-end"
@@ -32,13 +32,12 @@
           </v-item>
         </v-col>
       </v-row>
-    </v-container>
-  </v-item-group>
+    </v-item-group>
+  </v-app>
 </template>
 
 <script>
-import router from "../router";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters, mapState } from "vuex";
 
 export default {
   name: "LogIn",
@@ -46,18 +45,31 @@ export default {
     return {};
   },
   methods: {
-    login() {
+    logInCustomer() {
       this.retrieveToken();
-      this.getIsLogIn();
+      this.setIsCustomer();
+      this.$router.push({ name: "Home" });
+    },
+    logInLawyer() {
+      this.retrieveToken();
+      this.setIsLawyer();
       this.$router.push({ name: "Home" });
     },
     ...mapActions({
       retrieveToken: "logIn/retrieveToken",
       destroyToken: "logIn/destroyToken",
-      getIsLogIn: "logIn/getIsLogin",
+      setIsCustomer: "logIn/getIsCustomer",
+      setIsLawyer: "logIn/getIsLawyer",
     }),
   },
-  computed: {},
+  computed: {
+    ...mapState({
+      isCustomer: (state) => state.logIn.isCustomer,
+    }),
+    ...mapGetters({
+      isLogIn: "logIn/loggedIn",
+    }),
+  },
   mounted() {
     this.destroyToken();
   },

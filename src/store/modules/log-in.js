@@ -2,7 +2,7 @@ import axios from "axios";
 
 const state = {
   token: localStorage.getItem("access_token") || null,
-  isLogin: false,
+  isCustomer: false,
 };
 
 const mutations = {
@@ -12,11 +12,11 @@ const mutations = {
   destroyToken(state) {
     state.token = null;
   },
-  getIsLogin(state) {
-    state.isLogin = true;
+  setIsCustomer(state) {
+    state.isCustomer = true;
   },
-  getIsLogOut(state) {
-    state.isLogin = false;
+  setIsLawyer(state) {
+    state.isCustomer = false;
   },
 };
 
@@ -35,18 +35,25 @@ const actions = {
       commit("destroyToken");
     }
   },
-
-  getIsLogin({ commit }) {
-    commit("getIsLogin");
+  getIsCustomer({ commit }) {
+    commit("setIsCustomer");
   },
-  getIsLogOut({ commit }) {
-    commit("getIsLogOut");
+  getIsLawyer({ commit }) {
+    commit("setIsLawyer");
   },
 };
 
 const getters = {
   loggedIn(state) {
     return state.token !== null;
+  },
+  getColorNavMain(state) {
+    if (state.isCustomer) return "primary";
+    else return "secondary";
+  },
+  getProfile(state) {
+    if (state.isCustomer) return "Profile";
+    else return "LawyerProfile";
   },
 };
 

@@ -61,6 +61,24 @@ const routes = [
     ],
   },
   {
+    path: "/lawyer-profile",
+    name: "LawyerProfile",
+    component: () => import(/* webpackChunkName: "profile" */ "@/user-profile/lawyer/pages/lawyer-profile"),
+    meta: { requiresAuth: true },
+    children: [
+      {
+        path: "legal-advices",
+        name: "LegalAdvicesProfile",
+        component: () => import(/* webpackChunkName: "legal-advices" */ "@/law/legal-advices/pages/legal-advices"),
+      },
+      {
+        path: "custom-cases",
+        name: "CustomCasesProfile",
+        component: () => import(/* webpackChunkName: "custom-cases" */ "@/law/custom-cases/pages/custom-cases"),
+      },
+    ],
+  },
+  {
     path: "/about",
     name: "About",
     component: () => import(/* webpackChunkName: "about" */ "@/views/about"),
@@ -75,7 +93,7 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresAuth)) {
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (!store.getters["logIn/loggedIn"]) {
       next({
         name: "LogIn",

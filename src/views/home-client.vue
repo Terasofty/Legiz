@@ -17,8 +17,6 @@
             </v-col>
           </v-row>
         </v-container>
-
-        <router-view></router-view>
       </div>
       <div v-else>
         <router-view></router-view>
@@ -32,13 +30,6 @@
 import NavMain from "@/components/nav-main.vue";
 import { mapState } from "vuex";
 
-const menuProfile = [
-  { name: "LegalAdvices", title: "Legal Advices" },
-  { name: "CustomCases", title: "Custom Cases" },
-  { name: "CaseHistory", title: "Case History" },
-  { name: "PaymentHistory", title: "Payment History" },
-];
-
 const mainMenu = [
   { name: "Home", title: "Home" },
   { name: "SearchLawyer", title: "Lawyers" },
@@ -51,13 +42,17 @@ export default {
     NavMain,
   },
   data: () => ({
-    menuProfile,
     mainMenu,
   }),
   computed: {
     ...mapState({
-      isProfile: state => state["NavBar/isProfile"],
+      isProfile: (state) => state.navBars.isProfile,
+      id: (state) => state.customers.id,
     }),
+  },
+  created() {
+    this.$store.dispatch("customers/getLegalAdvicesById", this.id);
+    this.$store.dispatch("customers/getCustomCasesById", this.id);
   },
 };
 </script>

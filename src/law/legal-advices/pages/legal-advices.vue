@@ -13,21 +13,41 @@
     </v-col>
     <v-col cols="12" sm="12">
       <v-card class="mx-auto" tile>
-        <v-data-table :headers="headers" :items="legalAdvices" :search="title" sort-by="title">
-          <template v-slot:top>
-            <v-toolbar flat>
-              <v-toolbar-title>List</v-toolbar-title>
-              <v-divider class="mx-4" inset vertical></v-divider>
-            </v-toolbar>
-          </template>
-          <template v-slot:item.actions="{ item }">
-            <v-icon small class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
-            <v-icon small @click="deleteItem(item)">mdi-delete</v-icon>
-          </template>
-          <template v-slot:no-data>
-            <v-btn color="primary" @click="retrieveLegalAdvices"></v-btn>
-          </template>
-        </v-data-table>
+        <div v-if="isCustomer">
+          <v-data-table :headers="headers" :items="legalAdvices" :search="title" sort-by="title">
+            <template v-slot:top>
+              <v-toolbar flat>
+                <v-toolbar-title>List</v-toolbar-title>
+                <v-divider class="mx-4" inset vertical></v-divider>
+              </v-toolbar>
+            </template>
+            <template v-slot:item.actions="{ item }">
+              <v-icon small class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
+              <v-icon small @click="deleteItem(item)">mdi-delete</v-icon>
+            </template>
+            <template v-slot:no-data>
+              <v-btn color="primary" @click="retrieveLegalAdvices"></v-btn>
+            </template>
+          </v-data-table>
+        </div>
+
+        <div v-else>
+          <v-data-table :headers="headers" :items="legalAdvicesLawyer" :search="title" sort-by="title">
+            <template v-slot:top>
+              <v-toolbar flat>
+                <v-toolbar-title>List</v-toolbar-title>
+                <v-divider class="mx-4" inset vertical></v-divider>
+              </v-toolbar>
+            </template>
+            <template v-slot:item.actions="{ item }">
+              <v-icon small class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
+              <v-icon small @click="deleteItem(item)">mdi-delete</v-icon>
+            </template>
+            <template v-slot:no-data>
+              <v-btn color="primary" @click="retrieveLegalAdvices"></v-btn>
+            </template>
+          </v-data-table>
+        </div>
       </v-card>
     </v-col>
   </v-row>
@@ -56,7 +76,9 @@ export default {
   }),
   computed: {
     ...mapState({
-      legalAdvices: state => state.customers.legalAdvices,
+      isCustomer: (state) => state.logIn.isCustomer,
+      legalAdvices: (state) => state.customers.legalAdvices,
+      legalAdvicesLawyer: (state) => state.lawyers.legalAdvices,
     }),
   },
 };

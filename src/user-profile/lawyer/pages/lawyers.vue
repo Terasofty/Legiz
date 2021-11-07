@@ -157,8 +157,8 @@ export default {
   },
   computed: {
     ...mapState({
-      lawyers: state => state.lawyers.all,
-      customerId: state => state.customers.id,
+      lawyers: (state) => state.lawyers.all,
+      customerId: (state) => state.customers.id,
     }),
   },
   methods: {

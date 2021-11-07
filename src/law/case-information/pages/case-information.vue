@@ -108,9 +108,9 @@ export default {
     },
   },
   methods: {
-    allowedDates: val => parseInt(val.split("-")[2], 10) % 2 === 0,
-    allowedHours: v => v % 2,
-    allowedMinutes: v => v >= 10 && v <= 50,
+    allowedDates: (val) => parseInt(val.split("-")[2], 10) % 2 === 0,
+    allowedHours: (v) => v % 2,
+    allowedMinutes: (v) => v >= 10 && v <= 50,
     editItem(item) {
       this.editedItem = Object.assign({}, item);
       this.dialog = true;

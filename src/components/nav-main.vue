@@ -1,8 +1,11 @@
 <template>
   <div>
-    <v-app-bar app color="primary">
+    <v-app-bar app :color="getColorNavMain">
       <v-container class="py-0 fill-height">
-        <v-btn @click="menuClick('Profile')" class="ma-1" outlined fab small color="white">
+        <v-btn v-if="isCutomer" @click="menuClick('Profile')" class="ma-1" outlined fab small color="white">
+          <v-icon>mdi-account</v-icon>
+        </v-btn>
+        <v-btn v-else @click="menuClick('LawyerProfile')" class="ma-1" outlined fab small color="white">
           <v-icon>mdi-account</v-icon>
         </v-btn>
 
@@ -36,27 +39,40 @@ export default {
     menuClick(name) {
       if (this.$route.name !== name) {
         if (name === "Profile") this.$router.push({ name: "LegalAdvices" });
+        else if (name === "LawyerProfile") this.$router.push({ name: "LegalAdvicesProfile" });
         else this.$router.push({ name: name });
 
-        if (name === ("Profile" || "CustomCases" || "LegalAdvices")) this.isProfile(true);
+        if (name === ("Profile" || "LawyerProfile" || "CustomCases" || "LegalAdvices")) this.isProfile(true);
         else this.isProfile(false);
       }
     },
     logOut() {
-      this.getLogOut();
+      // this.getLogOut();
       this.destroyToken();
       this.$router.push("/login");
     },
+    ...mapState({
+      isCustomer: (state) => state.logIn.isCustomer,
+    }),
     ...mapActions({
       isProfile: "navBars/isProfile",
-      getLogOut: "logIn/getIsLogOut",
+      // getLogOut: "logIn/getIsLogOut",
       destroyToken: "logIn/destroyToken",
     }),
   },
   computed: {
-    ...mapGetters("logIn", {
-      isLogin: "loggedIn",
+    ...mapState({
+      isCustomer: (state) => state.logIn.isCustomer,
     }),
+    ...mapGetters({
+      isLogin: "logIn/loggedIn",
+      getColorNavMain: "logIn/getColorNavMain",
+      getProfile: "logIn/getProfile",
+    }),
+    currentColor: () => {
+      if (this.isCustomer) return "primary";
+      else return "secondary";
+    },
   },
 };
 </script>

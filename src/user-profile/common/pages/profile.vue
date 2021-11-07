@@ -40,8 +40,6 @@
 const menuProfile = [
   { name: "LegalAdvices", title: "Legal Advices" },
   { name: "CustomCases", title: "Custom Cases" },
-  // { name: "CaseHistory", title: "Case History" },
-  // { name: "PaymentHistory", title: "Payment History" },
 ];
 
 export default {
