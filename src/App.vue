@@ -1,29 +1,28 @@
 <template>
-  <v-app>
-    <v-app-bar app color="primary" dark>
-      <v-spacer></v-spacer>
-      <v-btn v-if="!value" plain to="/" @click="visible">Log In</v-btn>
-      <v-btn v-if="!value" plain to="/" @click="visible">Sign Up</v-btn>
-      <v-btn v-if="value" plain to="/login" @click="visible">Logout</v-btn>
-    </v-app-bar>
-    <v-main>
-      <v-container fluid>
-        <router-view />
-      </v-container>
-    </v-main>
-  </v-app>
+  <div v-if="IsClient"><home-client /></div>
+  <div v-else><home-lawyer /></div>
 </template>
 
 <script>
+import HomeClient from "./views/home-client.vue";
+import HomeLawyer from "./views/home-lawyer.vue";
+
 export default {
   name: "App",
+  components: {
+    HomeClient,
+    HomeLawyer,
+  },
   data: () => ({
-    value: false,
+    IsClient: true,
+    customerId: 1,
+    lawyerId: 1,
   }),
-  methods: {
-    visible() {
-      this.value = !this.value;
-    },
+
+  created() {
+    this.$store.dispatch("lawyers/getLawyers");
+    this.$store.dispatch("customers/getLegalAdvicesById", this.customerId);
+    this.$store.dispatch("customers/getCustomCasesById", this.customerId);
   },
 };
 </script>
