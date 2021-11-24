@@ -1,20 +1,14 @@
-import Vue from "vue";
-import Vuex from "vuex";
-import navBars from "./modules/nav-bar";
-import lawyers from "./modules/lawyers";
-import customers from "./modules/customers";
-import logIn from "./modules/log-in";
+import { createStore } from "vuex";
+import auth from "./modules/auth.module";
+import customer from "./modules/customer.module";
+import lawyer from "./modules/lawyer.module";
+import legalAdvice from "./modules/legal-advice.module";
 
-Vue.use(Vuex);
-
-const debug = process.env.NODE_ENV !== "production";
-
-export default new Vuex.Store({
+export default createStore({
   modules: {
-    navBars,
-    lawyers,
-    customers,
-    logIn,
+    auth,
+    customer,
+    lawyer,
+    legalAdvice,
   },
-  strict: debug,
 });

@@ -1,14 +1,13 @@
-import Vue from "vue";
+import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
-import vuetify from "./plugins/vuetify";
+import Antd from "ant-design-vue";
+import "ant-design-vue/dist/antd.less";
 
-Vue.config.productionTip = false;
-
-new Vue({
-  router,
-  store,
-  vuetify,
-  render: (h) => h(App),
-}).$mount("#app");
+const app = createApp(App);
+app.config.productionTip = false;
+app.use(Antd);
+app.use(store);
+app.use(router);
+app.mount("#app");

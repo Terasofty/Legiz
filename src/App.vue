@@ -1,43 +1,68 @@
 <template>
-  <div>
-    <div v-if="isLoggedIn">
-      <div v-if="isCustomer"><home-client /></div>
-      <div v-else><home-lawyer /></div>
-    </div>
-    <div v-else>
-      <log-in />
-    </div>
-  </div>
+  <a-layout id="legiz">
+    <l-nav-header />
+
+    <a-layout-content :style="{ padding: '0 50px', marginTop: '64px' }">
+      <div :style="{ background: '#fff', padding: '24px', minHeight: '380px' }">
+        <router-view></router-view>
+      </div>
+    </a-layout-content>
+  </a-layout>
 </template>
 
 <script>
-import HomeClient from "./views/home-client.vue";
-import HomeLawyer from "./views/home-lawyer.vue";
-import { mapGetters, mapState } from "vuex";
-import LogIn from "@/views/log-In";
+import LNavHeader from "@/shared/components/nav-header";
+import { useStore } from "vuex";
+import { watchEffect } from "vue";
 
 export default {
-  name: "App",
+  name: "app",
   components: {
-    LogIn,
-    HomeLawyer,
-    HomeClient,
+    LNavHeader,
   },
-  data: () => {
-    return {
-      IsClient: true,
-    };
-  },
-  computed: {
-    ...mapState({
-      isCustomer: (state) => state.logIn.isCustomer,
-    }),
-    ...mapGetters({
-      isLoggedIn: "logIn/loggedIn",
-    }),
-  },
-  created() {
-    this.$store.dispatch("lawyers/getLawyers");
+
+  setup() {
+    const store = useStore();
+
+    watchEffect(
+      () => {
+        if (store.state.auth.status.loggedIn) {
+          let id = store.state.auth.user.id;
+          store.dispatch("lawyer/getLawyers");
+          if (store.state.auth.user.userType === "Customer") {
+            store.dispatch("customer/getLegalAdvices", id);
+            store.dispatch("customer/getCustomCases", id);
+          } else {
+            store.dispatch("lawyer/getLegalAdvices", id);
+            store.dispatch("lawyer/getCustomCases", id);
+          }
+        }
+      },
+      {
+        flush: "post",
+      }
+    );
+
+    return {};
   },
 };
 </script>
+
+<style lang="less" scoped>
+#legiz .logo {
+  width: 120px;
+  height: 31px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 16px 24px 16px 0;
+  float: left;
+  display: inline-block;
+}
+
+.site-layout .site-layout-background {
+  background: #fff;
+}
+
+[data-theme="dark"] .site-layout .site-layout-background {
+  background: #141414;
+}
+</style>
