@@ -5,17 +5,17 @@
         <template #extra><a @click="onSignup">Sign up</a></template>
         <a-form :model="user" :label-col="labelCol" :wrapper-col="wrapperCol">
           <a-form-item label="User">
-            <a-input v-model:value="user.username" placeholder="Username">
+            <a-input v-model:value="user.username" placeholder="Username" id="username_field">
               <template #prefix><UserOutlined style="color: rgba(0, 0, 0, 0.25)" /></template>
             </a-input>
           </a-form-item>
           <a-form-item label="Password">
-            <a-input v-model:value="user.password" type="password" placeholder="Password">
+            <a-input v-model:value="user.password" type="password" placeholder="Password" id="password_field">
               <template #prefix><LockOutlined style="color: rgba(0, 0, 0, 0.25)" /></template>
             </a-input>
           </a-form-item>
           <a-form-item :style="{ justifyContent: 'center', textAlign: 'center' }">
-            <a-button type="primary" @click="login">Login</a-button>
+            <a-button type="primary" @click="login" id="submit">Login</a-button>
           </a-form-item>
         </a-form>
       </a-card>
@@ -52,7 +52,7 @@
             <a-input v-model:value="customer.dni" />
           </a-form-item>
           <a-form-item label="Username">
-            <a-input v-model:value="customer.username" />
+            <a-input v-model:value="customer.username" id="username"/>
           </a-form-item>
           <a-form-item label="Password">
             <a-input-password v-model:value="customer.password" placeholder="input password" />
