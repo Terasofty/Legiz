@@ -46,13 +46,14 @@ import { useRoute, useRouter } from "vue-router";
 import { message } from "ant-design-vue";
 
 const menuHeaderMainCustomer = [
-  { title: "Profile", name: "Profile" },
+  { title: "Legal Services", name: "Services" },
   { title: "Lawyers", name: "Lawyers" },
   { title: "About", name: "About" },
 ];
 
 const menuHeaderMainLawyer = [
   { title: "Profile", name: "Profile" },
+  { title: "My Services", name: "Services" },
   { title: "About", name: "About" },
 ];
 

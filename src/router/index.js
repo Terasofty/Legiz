@@ -4,7 +4,7 @@ import store from "../store";
 
 const About = () => import(/* webpackChunkName: "About" */ "@/shared/views/about");
 const Login = () => import(/* webpackChunkName: "Login" */ "@/shared/views/log-in");
-const Profile = () => import(/* webpackChunkName: "Profile" */ "@/user-profile/views/profile-container");
+const Services = () => import(/* webpackChunkName: "Profile" */ "@/user-profile/views/profile-container");
 const Lawyers = () => import(/* webpackChunkName: "about" */ "@/networking-bc/views/lawyers-container");
 
 const routes = [
@@ -19,9 +19,9 @@ const routes = [
     component: Login,
   },
   {
-    path: "/profile",
-    name: "Profile",
-    component: Profile,
+    path: "/services",
+    name: "Services",
+    component: Services,
     meta: { requiresAuth: true },
   },
   {

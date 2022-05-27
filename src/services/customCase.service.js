@@ -5,4 +5,4 @@ const getAll = async () => {
   return await http.get(endPoint, { headers: header() });
 };
 
-export { getAll }
+export { getAll };
