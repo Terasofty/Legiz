@@ -31,7 +31,8 @@
         </a-menu>
       </a-col>
       <a-col flex="150px">
-        <a @click="onLogout" v-if="loggedIn" :style="{ float: 'right', color: 'white' }" id="logout">log out</a>
+        <span v-if="loggedIn"> Welcome {{ user }}</span>
+        <a @click="onLogout" v-if="loggedIn" :style="{ float: 'right', color: 'white' }" id="logout">Log out</a>
         <a id="login" @click="onClick('Login')" v-else :style="{ float: 'right', color: 'white' }">Log in</a>
       </a-col>
     </a-row>
@@ -90,6 +91,7 @@ export default {
 
     return {
       loggedIn: computed(() => store.state.auth.status.loggedIn),
+      user: computed(() => store.state.auth.user),
       menuHeaderMainCustomer,
       menuHeaderMainLawyer,
       menuHeaderLoggedIn,

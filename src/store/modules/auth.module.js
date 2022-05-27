@@ -1,7 +1,7 @@
 import AuthService from "@/auth/service/auth.service";
 
-const user = JSON.parse(localStorage.getItem("user"));
-const initialState = user ? { status: { loggedIn: true }, user } : { status: { loggedIn: false }, user: null };
+const token = localStorage.getItem("token");
+const initialState = token ? { status: { loggedIn: true }, user: {} } : { status: { loggedIn: false }, user: null };
 
 const state = initialState;
 
@@ -23,6 +23,9 @@ const mutations = {
   },
   registerFailure(state) {
     state.status.loggedIn = false;
+  },
+  setUser(state, user) {
+    state.user = user;
   },
 };
 
@@ -54,6 +57,10 @@ const actions = {
         return Promise.reject(error);
       }
     );
+  },
+  async getCurrentUser() {
+    const user = await AuthService.getUser();
+    console.log(user);
   },
 
   registerOk({ commit }) {
