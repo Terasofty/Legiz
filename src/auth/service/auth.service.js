@@ -24,12 +24,15 @@ class AuthService {
       });
   }
   getUser() {
-    return http
-      .get("users/profile", { headers: header() })
-      .then( response => { return response.data });
+    return http.get("users/profile", { headers: header() }).then(({ data }) => {
+      delete data["password"];
+      localStorage.setItem("user", JSON.stringify(data));
+      return data;
+    });
   }
   logout() {
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
   }
   register(user) {
     return http.post(

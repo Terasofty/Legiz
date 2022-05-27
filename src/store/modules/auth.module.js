@@ -1,7 +1,8 @@
 import AuthService from "@/auth/service/auth.service";
 
 const token = localStorage.getItem("token");
-const initialState = token ? { status: { loggedIn: true }, user: {} } : { status: { loggedIn: false }, user: null };
+const user = localStorage.getItem("user");
+const initialState = token ? { status: { loggedIn: true }, user: JSON.parse(user) } : { status: { loggedIn: false }, user: null };
 
 const state = initialState;
 
@@ -58,11 +59,6 @@ const actions = {
       }
     );
   },
-  async getCurrentUser() {
-    const user = await AuthService.getUser();
-    console.log(user);
-  },
-
   registerOk({ commit }) {
     commit("registerSuccess");
   },
