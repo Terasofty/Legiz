@@ -13,7 +13,7 @@
           mode="horizontal"
           :style="{ lineHeight: '64px' }"
         >
-          <a-menu-item v-for="menu in menuHeaderMainCustomer" :key="menu.name" @click="onClick(menu.name)">
+          <a-menu-item v-for="menu in menuHeaderMainCustomer" :id="'nav-' + menu.name.toLowerCase()" :key="menu.name" @click="onClick(menu.name)">
             {{ menu.title }}
           </a-menu-item>
         </a-menu>

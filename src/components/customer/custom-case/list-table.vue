@@ -1,4 +1,11 @@
 <template>
+  <a-button
+    id="add-case"
+    style="margin-bottom: 10px"
+    type="primary" @click="handleClick"
+  > Add Custom Case
+  </a-button>
+
   <a-table
     :columns="columns"
     :pagination="{ pageSize: 10 }"
@@ -13,10 +20,14 @@
       </template>
     </template>
   </a-table>
+  <a-modal v-model:visible="modalVisibility" title="Add Custom Case" centered @ok="handleClick">
+    <new-form />
+  </a-modal>
 </template>
 
 <script>
 import { getAll } from "@/services/customCase.service";
+import newForm from "./new-form.vue";
 export default {
   name: "custom-case-customer",
   data() {
@@ -24,6 +35,7 @@ export default {
       loading: false,
       customCases: [],
       error: null,
+      modalVisibility: false,
     };
   },
   created() {
@@ -41,6 +53,9 @@ export default {
       this.loading = true;
       getAll().then(({ data }) => (this.customCases = data));
     },
+    handleClick() {
+      this.modalVisibility = !this.modalVisibility;
+    },
   },
   setup() {
     return {
@@ -51,6 +66,9 @@ export default {
         { title: "Description", dataIndex: ["customCase", "description"], key: "description" },
       ],
     };
+  },
+  components: {
+    newForm,
   },
 };
 </script>
