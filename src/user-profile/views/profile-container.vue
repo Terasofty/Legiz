@@ -21,7 +21,7 @@
       </a-menu>
     </a-layout-sider>
     <a-layout-content>
-      <div v-if="userType === 'Customer'">
+      <div v-if="userType === 'ROLE_CUSTOMER'">
         <div v-if="isLegalAdvice">
           <legal-advices-customer />
         </div>
@@ -76,7 +76,9 @@ export default {
       () => {
         if (store.state.auth.status.loggedIn) {
           nameUser.value = store.state.auth.user.firstName;
-          userType.value = store.state.auth.user.userType;
+          store.state.auth.user.roles.forEach(({ name }) => {
+            if (name !== "ROLE_ADMIN") userType.value = name;
+          });
         }
       },
       {

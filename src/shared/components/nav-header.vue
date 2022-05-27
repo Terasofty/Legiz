@@ -30,7 +30,7 @@
           </a-menu-item>
         </a-menu>
       </a-col>
-      <a-col flex="150px">
+      <a-col flex="200px">
         <span v-if="loggedIn"> Welcome {{ user.firstName }}</span>
         <a @click="onLogout" v-if="loggedIn" :style="{ float: 'right', color: 'white' }" id="logout">Log out</a>
         <a id="login" @click="onClick('Login')" v-else :style="{ float: 'right', color: 'white' }">Log in</a>

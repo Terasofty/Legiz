@@ -115,7 +115,7 @@ export default {
     const router = useRouter();
     const isLogin = ref(true);
     const typeUser = ref("");
-    const customer = ref(new Customer("", "", "", "", "", "", ""));
+    const customer = ref(new Customer("", "", "", "", "", "", "", []));
     const lawyer = ref(new Lawyer("", "", "", "", "", "", "", 0, 0, 0, 1));
     const user = ref(new User("", ""));
 

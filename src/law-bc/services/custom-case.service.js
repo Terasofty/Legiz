@@ -2,7 +2,7 @@ import http from "@/core/http-common";
 import header from "@/auth/service/auth-header";
 
 class CustomCaseService {
-  endPoint = "customlegalcases";
+  endPoint = "custom_cases";
 
   getAll() {
     return http.get(this.endPoint, { headers: header() });

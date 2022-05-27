@@ -2,7 +2,9 @@ import AuthService from "@/auth/service/auth.service";
 
 const token = localStorage.getItem("token");
 const user = localStorage.getItem("user");
-const initialState = token ? { status: { loggedIn: true }, user: JSON.parse(user) } : { status: { loggedIn: false }, user: null };
+const initialState = token
+  ? { status: { loggedIn: true }, user: JSON.parse(user) }
+  : { status: { loggedIn: false }, user: null };
 
 const state = initialState;
 

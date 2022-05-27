@@ -6,7 +6,7 @@
     :row-class-name="(_record, index) => (index % 2 === 1 ? 'table-striped' : null)"
     bordered
   >
-    <template #title>Legal Advices</template>
+    <template #title>Customer Legal Advices</template>
 
     <template #headerCell="{ column }">
       <template v-if="column.key === 'name'">
