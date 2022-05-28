@@ -1,30 +1,5 @@
 <template>
   <a-layout>
-    <a-layout-sider width="200" :style="{ background: 'white', textAlign: 'center' }">
-      <h1>Filters</h1>
-      <a-menu v-model:selectedKeys="selectedKeys" v-model:openKeys="openKeys" mode="inline" style="height: 100%">
-        <a-sub-menu key="sub1">
-          <template #title>
-            <span>
-              <user-outlined />
-              Location
-            </span>
-          </template>
-          <a-menu-item key="1">option1</a-menu-item>
-          <a-menu-item key="2">option2</a-menu-item>
-        </a-sub-menu>
-        <a-sub-menu key="sub2">
-          <template #title>
-            <span>
-              <laptop-outlined />
-              District
-            </span>
-          </template>
-          <a-menu-item key="5">option3</a-menu-item>
-          <a-menu-item key="6">option4</a-menu-item>
-        </a-sub-menu>
-      </a-menu>
-    </a-layout-sider>
     <a-layout-content>
       <a-list :grid="{ gutter: [16, 50], xs: 1, sm: 2, md: 3, lg: 3, xl: 3, xxl: 4 }" :data-source="lawyers">
         <template #renderItem="{ item }">
@@ -37,11 +12,11 @@
                 />
               </template>
               <template #actions class="ant-card-actions">
-                <a @click="showDrawerLegalAdvice(item.id)">Legal Advice</a>
+                <a @click="showDrawerLegalAdvice(item.user.id)">Legal Advice</a>
                 <a @click="showDrawerCustomCase(item.id)">Custom Case</a>
               </template>
               <a-card-meta>
-                <template #title> {{ item.firstName }} {{ item.lastName }} </template>
+                <template #title> {{ item.user.firstName }} {{ item.user.lastName }} </template>
                 <template #description>
                   <p>{{ item.district }}</p>
                   <p>{{ item.university }}</p>
