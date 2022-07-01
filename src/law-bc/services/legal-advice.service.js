@@ -24,7 +24,6 @@ class LegalAdviceService {
   }
 
   update(legalAdvice) {
-    console.log(legalAdvice);
     return http.put(
       `${this.endPoint}/${legalAdvice.id}`,
       {

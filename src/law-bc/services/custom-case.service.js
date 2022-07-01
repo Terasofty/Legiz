@@ -8,7 +8,6 @@ class CustomCaseService {
     return http.get(this.endPoint, { headers: header() });
   }
   create(customCase) {
-    console.log(customCase);
     return http.post(
       this.endPoint,
       {

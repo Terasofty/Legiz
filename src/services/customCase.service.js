@@ -6,6 +6,10 @@ const getAll = async () => {
   return await http.get(endPoint, { headers: header() });
 };
 
+const get = async (id) => {
+  return await http.get(`${endPoint}/${id}`, { headers: header() });
+}
+
 const create = async (payload) => {
   payload.type = "custom";
   const user = JSON.parse(localStorage.getItem("user"));
@@ -13,4 +17,4 @@ const create = async (payload) => {
   return await http.post(endPoint, payload, { headers: header() });
 };
 
-export { getAll, create };
+export { getAll, get, create };

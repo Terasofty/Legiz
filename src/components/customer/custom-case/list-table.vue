@@ -18,6 +18,13 @@
       <template v-if="column.key === 'specializations'">
         <span> {{ record.lawyer.specializations.map((s) => s.name).join(", ") }} </span>
       </template>
+      <template v-if="column.key === 'actions'">
+        <a-dropdown v-model:visible="visible">
+          <a-tag color="green" @click="handleCaseDetails(record.id)">
+            Details
+          </a-tag>
+        </a-dropdown>
+      </template>
     </template>
   </a-table>
   <a-modal v-model:visible="modalVisibility" title="Add Custom Case" centered @ok="handleClick">
@@ -36,6 +43,7 @@ export default {
       customCases: [],
       error: null,
       modalVisibility: false,
+      visible: false,
     };
   },
   created() {
@@ -56,6 +64,9 @@ export default {
     handleClick() {
       this.modalVisibility = !this.modalVisibility;
     },
+    handleCaseDetails(id) {
+      this.$router.push({ path: `/services/custom_cases/${id}` });
+    },
   },
   setup() {
     return {
@@ -64,6 +75,7 @@ export default {
         { title: "Lawyer Name", dataIndex: ["lawyer", "user", "firstName"], key: "lawyer" },
         { title: "Specializations", dataIndex: ["lawyer", "specializations", "firstName"], key: "specializations" },
         { title: "Description", dataIndex: ["customCase", "description"], key: "description" },
+        { title: "", key: "actions" },
       ],
     };
   },

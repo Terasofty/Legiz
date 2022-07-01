@@ -6,6 +6,7 @@ const About = () => import(/* webpackChunkName: "About" */ "@/shared/views/about
 const Login = () => import(/* webpackChunkName: "Login" */ "@/shared/views/log-in");
 const Services = () => import(/* webpackChunkName: "Profile" */ "@/user-profile/views/profile-container");
 const Lawyers = () => import(/* webpackChunkName: "about" */ "@/networking-bc/views/lawyers-container");
+const CustomCase = () => import(/* webpackChunkName: "about" */ "@/views/customCases/details");
 
 const routes = [
   {
@@ -34,6 +35,11 @@ const routes = [
     path: "/about",
     name: "About",
     component: About,
+  },
+  {
+    path: "/services/custom_cases/:id",
+    name: "Custom Case Details",
+    component: CustomCase,
   },
 ];
 
