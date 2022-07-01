@@ -3,6 +3,7 @@ import header from "@/auth/service/auth-header";
 
 class AuthService {
   endPoint = "login";
+  access_token = "";
 
   login(user) {
     return http
@@ -15,15 +16,22 @@ class AuthService {
         { headers: header() }
       )
       .then((response) => {
-        console.log(response);
-        if (response.data.token) {
-          console.log("user:" + response.data);
-          localStorage.setItem("user", JSON.stringify(response.data));
+        const token = response.data.access_token;
+        if (token) {
+          localStorage.setItem("token", token);
         }
-        return response.data;
+        return this.getUser();
       });
   }
+  getUser() {
+    return http.get("users/profile", { headers: header() }).then(({ data }) => {
+      delete data["password"];
+      localStorage.setItem("user", JSON.stringify(data));
+      return data;
+    });
+  }
   logout() {
+    localStorage.removeItem("token");
     localStorage.removeItem("user");
   }
   register(user) {

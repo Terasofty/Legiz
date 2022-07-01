@@ -13,7 +13,7 @@
           mode="horizontal"
           :style="{ lineHeight: '64px' }"
         >
-          <a-menu-item v-for="menu in menuHeaderMainCustomer" :key="menu.name" @click="onClick(menu.name)">
+          <a-menu-item v-for="menu in menuHeaderMainCustomer" :id="'nav-' + menu.name.toLowerCase()" :key="menu.name" @click="onClick(menu.name)">
             {{ menu.title }}
           </a-menu-item>
         </a-menu>
@@ -30,8 +30,9 @@
           </a-menu-item>
         </a-menu>
       </a-col>
-      <a-col flex="150px">
-        <a @click="onLogout" v-if="loggedIn" :style="{ float: 'right', color: 'white' }" id="logout">log out</a>
+      <a-col flex="200px">
+        <span v-if="loggedIn"> Welcome {{ user.firstName }}</span>
+        <a @click="onLogout" v-if="loggedIn" :style="{ float: 'right', color: 'white' }" id="logout">Log out</a>
         <a id="login" @click="onClick('Login')" v-else :style="{ float: 'right', color: 'white' }">Log in</a>
       </a-col>
     </a-row>
@@ -45,13 +46,14 @@ import { useRoute, useRouter } from "vue-router";
 import { message } from "ant-design-vue";
 
 const menuHeaderMainCustomer = [
-  { title: "Profile", name: "Profile" },
+  { title: "Legal Services", name: "Services" },
   { title: "Lawyers", name: "Lawyers" },
   { title: "About", name: "About" },
 ];
 
 const menuHeaderMainLawyer = [
   { title: "Profile", name: "Profile" },
+  { title: "My Services", name: "Services" },
   { title: "About", name: "About" },
 ];
 
@@ -90,6 +92,7 @@ export default {
 
     return {
       loggedIn: computed(() => store.state.auth.status.loggedIn),
+      user: computed(() => store.state.auth.user),
       menuHeaderMainCustomer,
       menuHeaderMainLawyer,
       menuHeaderLoggedIn,
