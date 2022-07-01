@@ -1,26 +1,26 @@
 <template>
   <a-layout>
     <a-layout-content>
-      <a-list :grid="{ gutter: [16, 50], xs: 1, sm: 2, md: 3, lg: 3, xl: 3, xxl: 4 }" :data-source="lawyers">
+      <a-list :grid="{ gutter: [16, 50], xs: 1, sm: 2, md: 3, lg: 3, xl: 5, xxl: 6 }" :data-source="lawyers">
         <template #renderItem="{ item }">
           <a-list-item>
             <a-card hoverable style="width: 300px">
               <template #cover>
-                <img
-                  alt="example"
-                  src="https://cdn.euroinnova.edu.es/img/subidasEditor/office-2820890_1920-1603984813.webp"
-                />
+                <img :alt="item.firstName" :src="item.photoUrl" style="height: 200px" />
               </template>
               <template #actions class="ant-card-actions">
-                <a @click="showDrawerLegalAdvice(item.user.id)">Legal Advice</a>
-                <a @click="showDrawerCustomCase(item.id)">Custom Case</a>
+                <a @click="showDrawerLegalAdvice(item)">Legal Advice</a>
+                <a @click="showDrawerCustomCase(item)">Custom Case</a>
               </template>
               <a-card-meta>
                 <template #title> {{ item.user.firstName }} {{ item.user.lastName }} </template>
                 <template #description>
-                  <p>{{ item.district }}</p>
-                  <p>{{ item.university }}</p>
-                  <p>{{ item.specialization }}</p>
+                  <p class="experience">
+                    {{ item.experience }}
+                  </p>
+                  <a-tag color="pink" v-for="(specialization, index) in item.specializations" :key="index">
+                    {{ specialization.name }}
+                  </a-tag>
                 </template>
               </a-card-meta>
             </a-card>
@@ -31,7 +31,7 @@
 
     <!--    legal advice-->
     <a-drawer
-      title="Create a new legal advice"
+      :title="`Create a new Legal Advice with ${selectedLawyer.user.firstName}`"
       :width="720"
       :visible="visibleLegalAdvice"
       :body-style="{ paddingBottom: '80px' }"
@@ -39,6 +39,8 @@
       @close="onCloseLegalAdvice"
     >
       <a-form ref="formRef" :rules="rules" :model="legalAdvice" layout="vertical">
+        <a-row>
+        </a-row>
         <a-row :gutter="16">
           <a-col :span="12">
             <a-form-item label="Title" name="title">
@@ -60,7 +62,7 @@
 
     <!--        custom case-->
     <a-drawer
-      title="Create a new account"
+      title="Create a new "
       :width="720"
       :visible="visibleCustomCase"
       :body-style="{ paddingBottom: '80px' }"
@@ -116,9 +118,6 @@ import CustomCase from "@/law-bc/models/custom-case";
 import dayjs from "dayjs";
 import {
   UserOutlined,
-  VideoCameraOutlined,
-  UploadOutlined,
-  BarChartOutlined,
   LaptopOutlined,
 } from "@ant-design/icons-vue";
 
@@ -127,6 +126,18 @@ export default {
   components: {
     UserOutlined,
     LaptopOutlined,
+  },
+  data() {
+    return {
+      selectedLawyer: {},
+      visibleLegalAdvice: false,
+    };
+  },
+  methods: {
+    showDrawerLegalAdvice(lawyer) {
+      this.visibleLegalAdvice = true;
+      this.selectedLawyer = lawyer;
+    }
   },
   setup() {
     const store = useStore();
@@ -160,12 +171,6 @@ export default {
           message: "Please input title",
         },
       ],
-      // startAt: [
-      //   {
-      //     required: true,
-      //     message: "Please input startAt",
-      //   },
-      // ],
       typeMeet: [
         {
           required: true,
@@ -173,12 +178,6 @@ export default {
         },
       ],
     });
-
-    // legal advice
-    const showDrawerLegalAdvice = (lawyerId) => {
-      visibleLegalAdvice.value = true;
-      legalAdvice.value.lawyerId = lawyerId;
-    };
 
     const onCloseLegalAdvice = () => {
       visibleLegalAdvice.value = false;
@@ -207,9 +206,9 @@ export default {
     };
 
     //custom case
-    const showDrawerCustomCase = (lawyerId) => {
+    const showDrawerCustomCase = (lawyer) => {
       visibleCustomCase.value = true;
-      customCase.value.lawyerId = lawyerId;
+      this.selectedLawyer = lawyer
     };
 
     const onCloseCustomCase = () => {
@@ -256,9 +255,7 @@ export default {
 
     return {
       lawyers: computed(() => store.state.lawyer.all),
-      visibleLegalAdvice,
       legalAdvice,
-      showDrawerLegalAdvice,
       onCloseLegalAdvice,
       onAddLegalAdvice,
       visibleCustomCase,
@@ -286,5 +283,13 @@ export default {
   &-content {
     padding: 15px;
   }
+}
+.experience {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* number of lines to show */
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 </style>
