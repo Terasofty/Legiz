@@ -114,8 +114,8 @@ export default {
     const store = useStore();
     const router = useRouter();
     const isLogin = ref(true);
-    const typeUser = ref("customer");
-    const customer = ref(new Customer("", "", "", "", "", "", ""));
+    const typeUser = ref("");
+    const customer = ref(new Customer("", "", "", "", "", "", "", []));
     const lawyer = ref(new Lawyer("", "", "", "", "", "", "", 0, 0, 0, 1));
     const user = ref(new User("", ""));
 
@@ -138,9 +138,9 @@ export default {
           router.push({ name: "Home" });
           message.success("Login successful.");
           let id = store.state.auth.user.id;
-          store.dispatch("lawyer/getLawyers");
-          console.log("aaa" + store.state.auth.user.userType);
-          if (store.state.auth.user.userType === "Customer") {
+          //store.dispatch("lawyer/getLawyers");
+          const role = store.state.auth.user.roles[0].name;
+          if (role === "ROLE_ADMIN" || role === "ROLE_CUSTOMER") {
             store.dispatch("customer/getLegalAdvices", id);
             store.dispatch("customer/getCustomCases", id);
           } else {

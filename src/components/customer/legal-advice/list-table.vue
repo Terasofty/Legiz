@@ -2,11 +2,11 @@
   <a-table
     :columns="columns"
     :pagination="{ pageSize: 10 }"
-    :data-source="customCases"
+    :data-source="legalAdvices"
     :row-class-name="(_record, index) => (index % 2 === 1 ? 'table-striped' : null)"
     bordered
   >
-    <template #title>Custom cases</template>
+    <template #title>Customer Legal Advices</template>
 
     <template #headerCell="{ column }">
       <template v-if="column.key === 'name'">
@@ -55,8 +55,8 @@
 </template>
 
 <script>
-import { computed } from "vue";
 import { useStore } from "vuex";
+import { computed } from "vue";
 
 const columns = [
   {
@@ -69,20 +69,12 @@ const columns = [
     dataIndex: "title",
   },
   {
-    title: "Start At",
-    dataIndex: "startAt",
+    title: "Description",
+    dataIndex: "description",
   },
   {
-    title: "Finish At",
-    dataIndex: "finishAt",
-  },
-  {
-    title: "Type Meet",
-    dataIndex: "typeMeet",
-  },
-  {
-    title: "Link Zoom",
-    dataIndex: "linkZoom",
+    title: "Legal Response",
+    dataIndex: "legalResponse",
   },
   {
     title: "Lawyer",
@@ -97,15 +89,19 @@ const columns = [
 ];
 
 export default {
-  name: "custom-case-customer",
+  name: "legal-advices-customer",
   setup() {
     const store = useStore();
     return {
-      customCases: computed(() => store.state.customer.customCases),
+      legalAdvices: computed(() => store.state.customer.legalAdvices),
       columns,
     };
   },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.ant-table-striped :deep(.table-striped) td {
+  background-color: #fafafa;
+}
+</style>

@@ -1,51 +1,26 @@
 <template>
   <a-layout>
-    <a-layout-sider width="200" :style="{ background: 'white', textAlign: 'center' }">
-      <h1>Filters</h1>
-      <a-menu v-model:selectedKeys="selectedKeys" v-model:openKeys="openKeys" mode="inline" style="height: 100%">
-        <a-sub-menu key="sub1">
-          <template #title>
-            <span>
-              <user-outlined />
-              Location
-            </span>
-          </template>
-          <a-menu-item key="1">option1</a-menu-item>
-          <a-menu-item key="2">option2</a-menu-item>
-        </a-sub-menu>
-        <a-sub-menu key="sub2">
-          <template #title>
-            <span>
-              <laptop-outlined />
-              District
-            </span>
-          </template>
-          <a-menu-item key="5">option3</a-menu-item>
-          <a-menu-item key="6">option4</a-menu-item>
-        </a-sub-menu>
-      </a-menu>
-    </a-layout-sider>
     <a-layout-content>
-      <a-list :grid="{ gutter: [16, 50], xs: 1, sm: 2, md: 3, lg: 3, xl: 3, xxl: 4 }" :data-source="lawyers">
+      <a-list :grid="{ gutter: [16, 50], xs: 1, sm: 2, md: 2, lg: 3, xl: 4, xxl: 5 }" :data-source="lawyers">
         <template #renderItem="{ item }">
           <a-list-item>
             <a-card hoverable style="width: 300px">
               <template #cover>
-                <img
-                  alt="example"
-                  src="https://cdn.euroinnova.edu.es/img/subidasEditor/office-2820890_1920-1603984813.webp"
-                />
+                <img :alt="item.firstName" :src="item.photoUrl" style="height: 200px" />
               </template>
               <template #actions class="ant-card-actions">
-                <a @click="showDrawerLegalAdvice(item.id)">Legal Advice</a>
-                <a @click="showDrawerCustomCase(item.id)">Custom Case</a>
+                <a @click="showDrawerLegalAdvice(item)">Legal Advice</a>
+                <a @click="showDrawerCustomCase(item)">Custom Case</a>
               </template>
               <a-card-meta>
-                <template #title> {{ item.firstName }} {{ item.lastName }} </template>
+                <template #title> {{ item.user.firstName }} {{ item.user.lastName }} </template>
                 <template #description>
-                  <p>{{ item.district }}</p>
-                  <p>{{ item.university }}</p>
-                  <p>{{ item.specialization }}</p>
+                  <p class="experience">
+                    {{ item.experience }}
+                  </p>
+                  <a-tag color="pink" v-for="(specialization, index) in item.specializations" :key="index">
+                    {{ specialization.name }}
+                  </a-tag>
                 </template>
               </a-card-meta>
             </a-card>
@@ -56,7 +31,7 @@
 
     <!--    legal advice-->
     <a-drawer
-      title="Create a new legal advice"
+      :title="`Create a new Legal Advice with ${selectedLawyer.user?.firstName}`"
       :width="720"
       :visible="visibleLegalAdvice"
       :body-style="{ paddingBottom: '80px' }"
@@ -64,6 +39,12 @@
       @close="onCloseLegalAdvice"
     >
       <a-form ref="formRef" :rules="rules" :model="legalAdvice" layout="vertical">
+        <a-row>
+          <a-card size="small" title="Meet your Lawyer" :bordered="false" style="width: 300px">
+            <img :src="selectedLawyer.photoUrl" style="height: 200px" />
+            <p>{{ selectedLawyer.experience }}</p>
+          </a-card>
+        </a-row>
         <a-row :gutter="16">
           <a-col :span="12">
             <a-form-item label="Title" name="title">
@@ -79,13 +60,13 @@
       </a-form>
       <template #footer>
         <a-button style="margin-right: 8px" @click="onCloseLegalAdvice">Cancel</a-button>
-        <a-button type="primary" @click="onAddLegalAdvice">Submit</a-button>
+        <a-button type="primary" @click="handleSubmitLegalAdvice(selectedLawyer.user.username)">Submit</a-button>
       </template>
     </a-drawer>
 
     <!--        custom case-->
     <a-drawer
-      title="Create a new account"
+      :title="`Create a new Custom case with ${selectedLawyer.user?.firstName}`"
       :width="720"
       :visible="visibleCustomCase"
       :body-style="{ paddingBottom: '80px' }"
@@ -93,27 +74,23 @@
       @close="onCloseCustomCase"
     >
       <a-form ref="formRefCustomCase" :rules="rulesCustomCase" :model="customCase" layout="vertical">
+        <a-row>
+          <a-card size="small" title="Meet your Lawyer" :bordered="false" style="width: 300px">
+            <img :src="selectedLawyer.photoUrl" style="height: 200px" />
+            <p>{{ selectedLawyer.experience }}</p>
+          </a-card>
+        </a-row>
         <a-row :gutter="16">
           <a-col :span="12">
             <a-form-item label="Title" name="title">
               <a-input v-model:value="customCase.title" placeholder="Please enter title" />
             </a-form-item>
+            <a-form-item label="Description" name="description">
+              <a-textarea v-model:value="customCase.description" placeholder="Please enter description" />
+            </a-form-item>
           </a-col>
         </a-row>
         <a-row :gutter="16">
-          <a-col :span="12">
-            <a-form-item label="Start" name="startAt">
-              <a-date-picker
-                style="width: 100%"
-                show-time
-                :disabled-date="disabledDate"
-                placeholder="Select Time"
-                @change="onChange"
-                @ok="onOk"
-                :get-popup-container="(trigger) => trigger.parentNode"
-              />
-            </a-form-item>
-          </a-col>
           <a-col :span="12">
             <a-form-item label="Type meet" name="typeMeet">
               <a-select v-model:value="customCase.typeMeet" placeholder="Please choose the type meet">
@@ -126,7 +103,12 @@
       </a-form>
       <template #footer>
         <a-button style="margin-right: 8px" @click="onCloseCustomCase">Cancel</a-button>
-        <a-button type="primary" @click="onAddCustomCase">Submit</a-button>
+        <a-button
+          type="primary"
+          :disabled="customCase.description === '' || customCase.title === ''"
+          @click="handleSubmitCustomCase(selectedLawyer.user.username)"
+          >Submit</a-button
+        >
       </template>
     </a-drawer>
   </a-layout>
@@ -135,17 +117,9 @@
 <script>
 import { computed, reactive, ref } from "vue";
 import { useStore } from "vuex";
+import { UserOutlined, LaptopOutlined } from "@ant-design/icons-vue";
+import { create } from "@/services/customCase.service";
 import { message } from "ant-design-vue";
-import LegalAdvice from "@/law-bc/models/legal-advice";
-import CustomCase from "@/law-bc/models/custom-case";
-import dayjs from "dayjs";
-import {
-  UserOutlined,
-  VideoCameraOutlined,
-  UploadOutlined,
-  BarChartOutlined,
-  LaptopOutlined,
-} from "@ant-design/icons-vue";
 
 export default {
   name: "lawyers-container",
@@ -153,15 +127,68 @@ export default {
     UserOutlined,
     LaptopOutlined,
   },
+  data() {
+    return {
+      selectedLawyer: {
+        user: {
+          firstName: "",
+          lastName: "",
+          photoUrl: "",
+        },
+        specializations: [],
+        experience: "",
+      },
+      visibleLegalAdvice: false,
+      visibleCustomCase: false,
+      customCase: {
+        title: "",
+        description: "",
+      },
+      legalAdvice: {
+        title: "",
+        description: "",
+      },
+    };
+  },
+  methods: {
+    showDrawerLegalAdvice(lawyer) {
+      this.visibleLegalAdvice = true;
+      this.selectedLawyer = lawyer;
+    },
+    onCloseLegalAdvice() {
+      this.visibleLegalAdvice = false;
+    },
+    handleSubmitLegalAdvice(lawyerUsername) {
+      console.log(lawyerUsername);
+    },
+    showDrawerCustomCase(lawyer) {
+      this.visibleCustomCase = true;
+      this.selectedLawyer = lawyer;
+    },
+    onCloseCustomCase() {
+      this.visibleCustomCase = false;
+    },
+    async handleSubmitCustomCase(lawyerUsername) {
+      await create({
+        title: this.customCase.title,
+        clientUsername: this.$store.state.auth.user.username,
+        lawyerUsername: lawyerUsername,
+        type: "custom",
+        description: this.customCase.description,
+      })
+        .then(({ data }) => {
+          this.$router.push(`/services/custom_cases/${data.id}`);
+        })
+        .catch(() => {
+          this.visibleCustomCase = false;
+          message.error("Oops Something went wrong");
+        });
+    },
+  },
   setup() {
     const store = useStore();
     const formRef = ref();
     const formRefCustomCase = ref();
-    const visibleLegalAdvice = ref(false);
-    const visibleCustomCase = ref(false);
-    const legalAdvice = ref(new LegalAdvice("", 2, "", "", "", 1));
-    const customCase = ref(new CustomCase("", "", "", "", 2, "", "", 1));
-
     //rules
     const rules = reactive({
       title: [
@@ -185,12 +212,12 @@ export default {
           message: "Please input title",
         },
       ],
-      // startAt: [
-      //   {
-      //     required: true,
-      //     message: "Please input startAt",
-      //   },
-      // ],
+      description: [
+        {
+          required: true,
+          message: "Please input description",
+        },
+      ],
       typeMeet: [
         {
           required: true,
@@ -199,101 +226,8 @@ export default {
       ],
     });
 
-    // legal advice
-    const showDrawerLegalAdvice = (lawyerId) => {
-      visibleLegalAdvice.value = true;
-      legalAdvice.value.lawyerId = lawyerId;
-    };
-
-    const onCloseLegalAdvice = () => {
-      visibleLegalAdvice.value = false;
-    };
-
-    const onAddLegalAdvice = () => {
-      formRef.value
-        .validate()
-        .then(() => {
-          legalAdvice.value.customerId = store.state.auth.user.id;
-          store.dispatch("customer/createLegalAdvice", legalAdvice.value).then(
-            () => {
-              message.success("Successful.");
-              onCloseLegalAdvice();
-              formRef.value.resetFields();
-              legalAdvice.value = new LegalAdvice("", 2, "", "", "", 1);
-            },
-            (error) => {
-              console.log(error);
-            }
-          );
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
-
-    //custom case
-    const showDrawerCustomCase = (lawyerId) => {
-      visibleCustomCase.value = true;
-      customCase.value.lawyerId = lawyerId;
-    };
-
-    const onCloseCustomCase = () => {
-      visibleCustomCase.value = false;
-    };
-
-    const onAddCustomCase = () => {
-      formRefCustomCase.value
-        .validate()
-        .then(() => {
-          customCase.value.customerId = store.state.auth.user.id;
-          store.dispatch("customer/createCustomCase", customCase.value).then(
-            () => {
-              message.success("Successful.");
-              onCloseCustomCase();
-              formRefCustomCase.value.resetFields();
-              customCase.value = new CustomCase("", "", "", "", 2, "", "", 1);
-            },
-            (error) => {
-              console.log(error);
-            }
-          );
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
-
-    const onChange = (value, dateString) => {
-      console.log("Selected Time: ", value);
-      console.log("Formatted Selected Time: ", dateString);
-    };
-
-    const onOk = (value) => {
-      console.log("onOk: ", value);
-      customCase.value.startAt = value.format("DD-MM-YYYY HH:mm");
-      customCase.value.finishAt = value.add(1, "hour").format("DD-MM-YYYY HH:mm");
-    };
-
-    const disabledDate = (current) => {
-      // Can not select days before today and today
-      return current && current < dayjs().endOf("day");
-    };
-
     return {
       lawyers: computed(() => store.state.lawyer.all),
-      visibleLegalAdvice,
-      legalAdvice,
-      showDrawerLegalAdvice,
-      onCloseLegalAdvice,
-      onAddLegalAdvice,
-      visibleCustomCase,
-      customCase,
-      showDrawerCustomCase,
-      onCloseCustomCase,
-      onAddCustomCase,
-      onChange,
-      onOk,
-      disabledDate,
       rules,
       rulesCustomCase,
       formRef,
@@ -311,5 +245,13 @@ export default {
   &-content {
     padding: 15px;
   }
+}
+.experience {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* number of lines to show */
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 </style>

@@ -62,10 +62,8 @@ const actions = {
   getCustomCases({ commit }, id) {
     return CustomCaseService.getAll().then(
       (response) => {
-        commit(
-          SET_CUSTOM_CASES,
-          response.data.filter((x) => x.customer.id === id)
-        );
+        console.log(response);
+        commit(SET_CUSTOM_CASES, response.data);
         return Promise.resolve(response.data);
       },
       (error) => {

@@ -15,13 +15,13 @@
               {{ nameUser }}
             </span>
           </template>
-          <a-menu-item key="1" @click="onSetLegalAdvice">Legal Advices</a-menu-item>
-          <a-menu-item key="2" @click="onSetCustomCase">Custom Case</a-menu-item>
+          <a-menu-item id="legal-advices" key="1" @click="onSetLegalAdvice">Legal Advices</a-menu-item>
+          <a-menu-item id="custom-cases" key="2" @click="onSetCustomCase">Custom Case</a-menu-item>
         </a-sub-menu>
       </a-menu>
     </a-layout-sider>
     <a-layout-content>
-      <div v-if="userType === 'Customer'">
+      <div v-if="userType === 'ROLE_CUSTOMER'">
         <div v-if="isLegalAdvice">
           <legal-advices-customer />
         </div>
@@ -45,10 +45,10 @@
 import { UserOutlined } from "@ant-design/icons-vue";
 import { computed, ref, watchEffect } from "vue";
 import { useStore } from "vuex";
-import LegalAdvicesCustomer from "../../law-bc/components/legal-advices-customer";
-import CustomCaseCustomer from "../../law-bc/components/custom-case-customer";
-import LegalAdvicesLawyer from "../../law-bc/components/legal-advices-lawyer";
-import CustomCaseLawyer from "../../law-bc/components/custom-case-lawyer";
+import LegalAdvicesCustomer from "../../components/customer/legal-advice/list-table";
+import CustomCaseCustomer from "../../components/customer/custom-case/list-table";
+import LegalAdvicesLawyer from "../../components/lawyer/legal-advice/legal-advices-lawyer";
+import CustomCaseLawyer from "../../components/lawyer/custom-case/custom-case-lawyer";
 
 export default {
   name: "profile-container",
@@ -76,7 +76,9 @@ export default {
       () => {
         if (store.state.auth.status.loggedIn) {
           nameUser.value = store.state.auth.user.firstName;
-          userType.value = store.state.auth.user.userType;
+          store.state.auth.user.roles.forEach(({ name }) => {
+            if (name !== "ROLE_ADMIN") userType.value = name;
+          });
         }
       },
       {
